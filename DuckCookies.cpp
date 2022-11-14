@@ -31,7 +31,7 @@ void print_cookie_order(cookie_order order)
 {
     std::cout << "\n * " << order.order_id << " " << order.user << " -- " << order.order_item.cookie_flavor << " x " << order.order_item.number_of_cookies << "\n\n";
 }
-// Order Cookie Function
+
 void cookie_order_function()
 {
     string cookie_type;
@@ -96,7 +96,7 @@ void menu_galletas()
     cout << "==================" << endl;
 }
 
-int main()
+void main_menu_function()
 {
     // Initialize Variables
     int entrada_de_usuario;
@@ -113,47 +113,50 @@ int main()
     cout << "\n User Input:" << endl;
     cin >> entrada_de_usuario;
 
-    // Menu
     if (entrada_de_usuario == 0)
     {
         menu_galletas();
-        main();
+        main_menu_function();
     }
     // crear usuario
     else if (entrada_de_usuario == 1)
     {
         crear_usuario_function();
-        main();
+        main_menu_function();
     }
     // crear nueva orden
     else if (entrada_de_usuario == 2)
     {
         cookie_order_function();
-        main();
+        main_menu_function();
     }
     // Ver historial
     else if (entrada_de_usuario == 3)
     {
         cout << "" << endl;
-        main();
+        main_menu_function();
     }
     // crear analiticos
     else if (entrada_de_usuario == 4)
     {
         cout << "" << endl;
-        main();
+        main_menu_function();
     }
     // Exit menu
     else if (entrada_de_usuario == 5)
     {
         cout << "Thank you for shopping at Duck Cookies. Program Closing \n"
              << endl;
-        return 0;
     }
     else
     {
-        cout << "Error" << endl;
-        main();
+        cout << "Error! input not valid. (Exiting program) \n"
+             << endl;
     }
+}
+
+int main()
+{
+    main_menu_function();
     return 0;
 }
