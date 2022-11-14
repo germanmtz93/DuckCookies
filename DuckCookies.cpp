@@ -8,12 +8,29 @@ struct cookit_user
     std::string email;
 };
 
+struct order_item
+{
+    std::string cookie_flavor;
+    int number_of_cookies;
+};
+
+struct cookie_order
+{
+    int order_id;
+    std::string user;
+    struct order_item order_item;
+};
+
 void print_user(cookit_user user)
 {
 
-    std::cout << "\n Tu usuario es: " << user.name << "\n Tu correo es: " << user.email <<endl;
+    std::cout << "\n Tu usuario es: " << user.name << "\n Tu correo es: " << user.email << endl;
 }
 
+void print_cookie_order(cookie_order order)
+{
+    std::cout << "\n * " << order.order_id << " " << order.user << " -- " << order.order_item.cookie_flavor << " x " << order.order_item.number_of_cookies << "\n\n";
+}
 // Order Cookie Function
 void cookie_order_function()
 {
@@ -26,10 +43,21 @@ void cookie_order_function()
     cin >> cookie_type;
     cout << "Cuantas Galletas quieres? (1-100)" << endl;
     cin >> cookie_quantity;
+
+    order_item item1;
+    item1.cookie_flavor = cookie_type;
+    item1.number_of_cookies = cookie_quantity;
+
+    cookie_order order1;
+    order1.user = "GuestUser";
+    order1.order_item = item1;
+    order1.order_id = rand() % 100000;
+
+    print_cookie_order(order1);
+
+    // Reorder Loop
     cout << "Quieres pedir mas galletas? (Y/N)" << endl;
     cin >> reorder_bool;
-    // Reorder Loop
-
     if (reorder_bool == "Y")
     {
         cout << "--Siguiente Orden--" << endl;
@@ -118,7 +146,8 @@ int main()
     // Exit menu
     else if (entrada_de_usuario == 5)
     {
-        cout << "Thank you for shopping at Duck Cookies. Program Closing \n" << endl;
+        cout << "Thank you for shopping at Duck Cookies. Program Closing \n"
+             << endl;
         return 0;
     }
     else
