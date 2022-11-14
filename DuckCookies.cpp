@@ -1,18 +1,13 @@
 #include <iostream>
 using namespace std;
-template<typename T, size_t n>
-void print_array(T const(& arr)[n])
-{
-    for (size_t i = 0; i < n; i++) {
-        std::cout << arr[i] << ' ';
-    }
-}
 
 int main()
 {
-    // Menu principal
+    // Initialize Variables
     int entrada_de_usuario;
     int orden;
+
+    // Menu principal
     cout << "Menu principal" << endl;
     cout << "0: Ver menu" << endl;
     cout << "1: Crear usuario " << endl;
@@ -22,6 +17,7 @@ int main()
     cout << "5. Exit menu" << endl;
     cin >> entrada_de_usuario;
     cout << entrada_de_usuario;
+
     // Menu
     if (entrada_de_usuario == 0)
     {
@@ -31,21 +27,21 @@ int main()
         cout << "Vainilla $120" << endl;
         cout << "Galleta de azucar $90" << endl;
         cout << "Brownie $200" << endl;
+        main();
     }
     // crear usuario
     else if (entrada_de_usuario == 1)
     {
-         string usuario, email;
+        string usuario, email;
 
-    cout << "\n Introduce tu nombre de usuario: ";
-    cin >> usuario;
+        cout << "\n Introduce tu nombre de usuario: ";
+        cin >> usuario;
 
-    cout << "\n introduce tu email: ";
-    cin >> email;
+        cout << "\n introduce tu email: ";
+        cin >> email;
 
-    cout << "\n tu usuario es: " << usuario << "\n tu correo es: " << email << endl;
-     string usuario_local[2] = {usuario, email};
-    print_array(usuario_local);
+        cout << "\n tu usuario es: " << usuario << "\n tu correo es: " << email << endl;
+        main();
     }
     // crear nueva orden
     else if (entrada_de_usuario == 2)
@@ -53,26 +49,30 @@ int main()
         cout << "" << endl;
         cout << "Que quieres ordenar" << endl;
         cin >> orden;
+        main();
     }
     // Ver historial
     else if (entrada_de_usuario == 3)
     {
         cout << "" << endl;
-
+        main();
     }
     // crear analiticos
     else if (entrada_de_usuario == 4)
     {
         cout << "" << endl;
+        main();
     }
     // Exit menu
     else if (entrada_de_usuario == 5)
     {
-        cout << "" << endl;
+        cout << "Thank you for shopping at Duck Cookies. Program Closing" << endl;
+        return 0;
     }
     else
     {
         cout << "Error" << endl;
+        main();
     }
     return 0;
 }
