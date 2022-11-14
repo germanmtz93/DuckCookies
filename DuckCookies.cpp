@@ -1,11 +1,34 @@
 #include <iostream>
 using namespace std;
 
+// Order Cookie Function
+void cookie_order_function()
+{
+    string cookie_type;
+    int cookie_quantity;
+    string reorder_bool;
+
+    cout << "" << endl;
+    cout << "Que gayetas quieres ordenar (ChocolateChip, Macademia, Oatmeal Raisin, Brownie)" << endl;
+    cin >> cookie_type;
+    cout << "Cuanas Galletas quieres? (1-100)" << endl;
+    cin >> cookie_quantity;
+    cout << "Would you like to order more cookies? (Y/N)" << endl;
+    cin >> reorder_bool;
+    // Reorder Loop
+
+    if (reorder_bool == "Y")
+    {
+        cout << "--Siguiente Orden--" << endl;
+        cookie_order_function();
+    }
+    
+}
+
 int main()
 {
     // Initialize Variables
     int entrada_de_usuario;
-    int orden;
 
     // Menu principal
     cout << "Menu principal" << endl;
@@ -46,9 +69,7 @@ int main()
     // crear nueva orden
     else if (entrada_de_usuario == 2)
     {
-        cout << "" << endl;
-        cout << "Que quieres ordenar" << endl;
-        cin >> orden;
+        cookie_order_function();
         main();
     }
     // Ver historial
