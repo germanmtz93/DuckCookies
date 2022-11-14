@@ -9,11 +9,11 @@ void cookie_order_function()
     string reorder_bool;
 
     cout << "" << endl;
-    cout << "Que gayetas quieres ordenar (ChocolateChip, Macademia, Oatmeal Raisin, Brownie)" << endl;
+    cout << "Que galletas quieres ordenar (Galleta de chocolate, Galleta de vainilla, Galleta de azucar, Brownie)" << endl;
     cin >> cookie_type;
-    cout << "Cuanas Galletas quieres? (1-100)" << endl;
+    cout << "Cuantas Galletas quieres? (1-100)" << endl;
     cin >> cookie_quantity;
-    cout << "Would you like to order more cookies? (Y/N)" << endl;
+    cout << "Quieres pedir mas galletas? (Y/N)" << endl;
     cin >> reorder_bool;
     // Reorder Loop
 
@@ -24,6 +24,29 @@ void cookie_order_function()
     }
     
 }
+
+void crear_usuario_function()
+    {
+        string usuario, email;
+
+        cout << "\n Introduce tu nombre de usuario: ";
+        cin >> usuario;
+
+        cout << "\n introduce tu email: ";
+        cin >> email;
+
+        cout << "\n tu usuario es: " << usuario << "\n tu correo es: " << email << endl;
+    }
+    void menu_galletas()
+    {
+        cout<<"==================" << endl;
+        cout << "\n MENU" << endl;
+        cout << "Galleta de chocolate $100" << endl;
+        cout << "Vainilla $120" << endl;
+        cout << "Galleta de azucar $90" << endl;
+        cout << "Brownie $200 \n" << endl;
+        cout<<"==================" << endl;
+    }
 
 int main()
 {
@@ -39,31 +62,17 @@ int main()
     cout << "4: Crear analiticos" << endl;
     cout << "5. Exit menu" << endl;
     cin >> entrada_de_usuario;
-    cout << entrada_de_usuario;
 
     // Menu
     if (entrada_de_usuario == 0)
     {
-        cout << "" << endl;
-        cout << "MENU" << endl;
-        cout << "Galleta de chocolate $100" << endl;
-        cout << "Vainilla $120" << endl;
-        cout << "Galleta de azucar $90" << endl;
-        cout << "Brownie $200" << endl;
+        menu_galletas();
         main();
     }
     // crear usuario
     else if (entrada_de_usuario == 1)
     {
-        string usuario, email;
-
-        cout << "\n Introduce tu nombre de usuario: ";
-        cin >> usuario;
-
-        cout << "\n introduce tu email: ";
-        cin >> email;
-
-        cout << "\n tu usuario es: " << usuario << "\n tu correo es: " << email << endl;
+        crear_usuario_function();
         main();
     }
     // crear nueva orden
