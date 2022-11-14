@@ -1,6 +1,19 @@
 #include <iostream>
 using namespace std;
 
+struct cookit_user
+{
+    int user_id;
+    std::string name;
+    std::string email;
+};
+
+void print_user(cookit_user user)
+{
+
+    std::cout << "\n Tu usuario es: " << user.name << "\n Tu correo es: " << user.email <<endl;
+}
+
 // Order Cookie Function
 void cookie_order_function()
 {
@@ -22,31 +35,38 @@ void cookie_order_function()
         cout << "--Siguiente Orden--" << endl;
         cookie_order_function();
     }
-    
 }
 
 void crear_usuario_function()
-    {
-        string usuario, email;
+{
+    string usuario, email;
 
-        cout << "\n Introduce tu nombre de usuario: ";
-        cin >> usuario;
+    cout << "\n Introduce tu nombre de usuario: ";
+    cin >> usuario;
 
-        cout << "\n introduce tu email: ";
-        cin >> email;
+    cout << "\n introduce tu email: ";
+    cin >> email;
 
-        cout << "\n tu usuario es: " << usuario << "\n tu correo es: " << email << endl;
-    }
-    void menu_galletas()
-    {
-        cout<<"==================" << endl;
-        cout << "\n MENU" << endl;
-        cout << "Galleta de chocolate $100" << endl;
-        cout << "Vainilla $120" << endl;
-        cout << "Galleta de azucar $90" << endl;
-        cout << "Brownie $200 \n" << endl;
-        cout<<"==================" << endl;
-    }
+    cookit_user user1;
+    user1.name = usuario;
+    user1.email = email;
+    user1.user_id = rand() % 100000;
+
+    std::cout << "---- USER CREATED ----- \n";
+    print_user(user1);
+}
+
+void menu_galletas()
+{
+    cout << "==================" << endl;
+    cout << "\n MENU" << endl;
+    cout << "Galleta de chocolate $100" << endl;
+    cout << "Vainilla $120" << endl;
+    cout << "Galleta de azucar $90" << endl;
+    cout << "Brownie $200 \n"
+         << endl;
+    cout << "==================" << endl;
+}
 
 int main()
 {
@@ -54,13 +74,15 @@ int main()
     int entrada_de_usuario;
 
     // Menu principal
-    cout << "Menu principal" << endl;
+    cout << "\n --Menu principal--" << endl;
     cout << "0: Ver menu" << endl;
     cout << "1: Crear usuario " << endl;
     cout << "2: Crear nueva orden" << endl;
     cout << "3: Ver nueva historial" << endl;
     cout << "4: Crear analiticos" << endl;
     cout << "5. Exit menu" << endl;
+
+    cout << "\n User Input:" << endl;
     cin >> entrada_de_usuario;
 
     // Menu
@@ -96,7 +118,7 @@ int main()
     // Exit menu
     else if (entrada_de_usuario == 5)
     {
-        cout << "Thank you for shopping at Duck Cookies. Program Closing" << endl;
+        cout << "Thank you for shopping at Duck Cookies. Program Closing \n" << endl;
         return 0;
     }
     else
