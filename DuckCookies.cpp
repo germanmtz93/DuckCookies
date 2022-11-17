@@ -84,27 +84,8 @@ string flavor_int_2_str(int x)
 }
 void print_cookie_order(cookie_order order, details item[])
 {
-    std::string flavor_string;
-    if (order.line_item.cookie_flavor == 1)
-    {
-        flavor_string = "Galleta de chocolate";
-    }
-    else if (order.line_item.cookie_flavor == 2)
-    {
-        flavor_string = "Vainilla";
-    }
-    else if (order.line_item.cookie_flavor == 3)
-    {
-        flavor_string = "Galleta de azucar";
-    }
-    else if (order.line_item.cookie_flavor == 4)
-    {
-        flavor_string = "Brownie";
-    }
-    else
-    {
-        flavor_string = "?";
-    }
+
+    std::string flavor_string = flavor_int_2_str(order.line_item.cookie_flavor);
 
     int flavor_int = (order.line_item.cookie_flavor) - 1;
     int total = (item[flavor_int].price) * (order.line_item.number_of_cookies);
