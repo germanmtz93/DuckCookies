@@ -99,9 +99,22 @@ void print_order_history(details item[], cookie_order orders[], int order_count)
 {
     int i;
 
-    printf(" ***** ORDER History ***** \n");
+    printf(" ***** HISTORIAL DE ORDEN ***** \n");
     printf("---------------------------------- \n");
-    printf(" USER | LINE ITEMS | ORDER_ID \n");
+    printf(" USUARIO | PRODUCTO | ORDER_ID \n");
+    printf("------------------------ \n");
+
+    for (i = 0; i < order_count; i++)
+        std::cout << orders[i].user << " " << flavor_int_2_str(orders[i].line_item.cookie_flavor) << " " << orders[i].order_id << std::endl;
+    printf("---------------------------");
+}
+void print_analiticos(details item[], cookie_order orders[], int order_count)
+{
+    int i;
+
+    printf(" ***** Analiticos ***** \n");
+    printf("---------------------------------- \n");
+    printf(" USUARIO | PRODUCTO | ORDER_ID \n");
     printf("------------------------ \n");
 
     for (i = 0; i < order_count; i++)
@@ -226,7 +239,7 @@ void main_menu_function(details item[], cookie_order orders[], int order_count)
     // crear analiticos
     else if (entrada_de_usuario == 4)
     {
-        cout << "" << endl;
+        print_analiticos(item, orders, order_count);
         main_menu_function(item, orders, order_count);
     }
     // ver inventario de galletas
