@@ -34,9 +34,9 @@ void print_inventory(details item[])
     int n, i;
     n = 4;
 
-    printf(" ***** INVENTORY ***** \n");
+    printf(" ***** INVENTARIO ***** \n");
     printf("---------------------------------- \n");
-    printf("S.N.| NAME | CODE | QUANTITY | PRICE \n");
+    printf("S.N.| NOMBRE | CODIGO | CANTIDAD | PRECIO \n");
     printf("------------------------ \n");
 
     for (i = 0; i < n; i++)
@@ -61,10 +61,22 @@ void print_cookie_order(cookie_order order, details item[])
     std::string flavor_string;
     if (order.order_item.cookie_flavor == 1)
     {
-        flavor_string = "choco";
+        flavor_string = "Galleta de chocolate";
+    }
+    else if (order.order_item.cookie_flavor == 2)
+    {
+        flavor_string = "Vainilla";
+    }
+     else if (order.order_item.cookie_flavor == 3)
+    {
+        flavor_string = "Galleta de azucar";
+    }
+     else if (order.order_item.cookie_flavor == 4)
+    {
+        flavor_string = "Brownie";
     }
     // TODO
-    else
+    else 
     {
         flavor_string = "?";
     }
@@ -84,7 +96,7 @@ void cookie_order_function(details item[])
     string reorder_bool;
 
     cout << "" << endl;
-    cout << "Que sabor de galletas quieres ordenar ( 1 = Galleta de chocolate, 2 = Galleta de vainilla, 3 = Galleta de azucar, 4 = Brownie)" << endl;
+    cout << "Que sabor de Galleta quieres ordenar ( 1 = Galleta de chocolate, 2 = Galleta de vainilla, 3 = Galleta de azucar, 4 = Brownie)" << endl;
     cin >> cookie_type;
     cout << "Cuantas Galletas quieres? (1-100)" << endl;
     cin >> cookie_quantity;
@@ -129,7 +141,7 @@ void crear_usuario_function()
     user[i].email = email;
     user[i].user_id = rand() % 100000;
 
-    std::cout << "---- USER CREATED ----- \n";
+    std::cout << "---- USUARIO CREADO ----- \n";
     print_user(user[i]);
 }
 
@@ -158,9 +170,9 @@ void main_menu_function(details item[])
     cout << "3: Ver historial de ordenes" << endl;
     cout << "4: Crear analiticos" << endl;
     cout << "5: Ver inventario de galletas" << endl;
-    cout << "6. Exit menu" << endl;
+    cout << "6. Salir del menu" << endl;
 
-    cout << "\n User Input:" << endl;
+    cout << "\n Entrada de usuario:" << endl;
     cin >> entrada_de_usuario;
 
     if (entrada_de_usuario == 0)
@@ -201,12 +213,12 @@ void main_menu_function(details item[])
     // Exit menu
     else if (entrada_de_usuario == 6)
     {
-        cout << "Thank you for shopping at Duck Cookies. Program Closing \n"
+        cout << "Gracias por comprar en Duckcookies. Cerrando programa \n"
              << endl;
     }
     else
     {
-        cout << "Error! input not valid. (Exiting program) \n"
+        cout << "Error lo ingresado no es valido. (Cerrando programa) \n"
              << endl;
     }
 }
