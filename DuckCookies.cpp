@@ -16,7 +16,7 @@ struct cookit_user
     std::string email;
 };
 
-struct order_item
+struct line_item
 {
     int cookie_flavor;
     int number_of_cookies;
@@ -26,7 +26,7 @@ struct cookie_order
 {
     int order_id;
     std::string user;
-    struct order_item order_item;
+    struct line_item line_item;
 };
 
 void print_inventory(details item[])
@@ -56,40 +56,79 @@ void print_user(cookit_user user)
     std::cout << "\n Tu usuario es: " << user.name << "\n Tu correo es: " << user.email << endl;
 }
 
-void print_cookie_order(cookie_order order, details item[])
+string flavor_int_2_str(int x)
 {
     std::string flavor_string;
-    if (order.order_item.cookie_flavor == 1)
+    if (x == 1)
     {
         flavor_string = "Galleta de chocolate";
     }
-    else if (order.order_item.cookie_flavor == 2)
+    else if (x == 2)
     {
         flavor_string = "Vainilla";
     }
-     else if (order.order_item.cookie_flavor == 3)
+    else if (x == 3)
     {
         flavor_string = "Galleta de azucar";
     }
-     else if (order.order_item.cookie_flavor == 4)
+    else if (x == 4)
     {
         flavor_string = "Brownie";
     }
-    // TODO
-    else 
+    else
     {
         flavor_string = "?";
     }
 
-    int flavor_int = (order.order_item.cookie_flavor) - 1;
-    int total = (item[flavor_int].price) * (order.order_item.number_of_cookies);
+    return (flavor_string);
+}
+void print_cookie_order(cookie_order order, details item[])
+{
+    std::string flavor_string;
+    if (order.line_item.cookie_flavor == 1)
+    {
+        flavor_string = "Galleta de chocolate";
+    }
+    else if (order.line_item.cookie_flavor == 2)
+    {
+        flavor_string = "Vainilla";
+    }
+    else if (order.line_item.cookie_flavor == 3)
+    {
+        flavor_string = "Galleta de azucar";
+    }
+    else if (order.line_item.cookie_flavor == 4)
+    {
+        flavor_string = "Brownie";
+    }
+    else
+    {
+        flavor_string = "?";
+    }
 
-    std::cout << "\n * " << order.order_id << " " << order.user << " -- " << flavor_string << " x " << order.order_item.number_of_cookies << "\n\n";
-    std::cout << "\n * $" << item[flavor_int].price << " x " << order.order_item.number_of_cookies << "\n\n";
-    std::cout << "\n *  $" << total << "\n\n";
+    int flavor_int = (order.line_item.cookie_flavor) - 1;
+    int total = (item[flavor_int].price) * (order.line_item.number_of_cookies);
+
+    std::cout << "\n * " << order.order_id << " " << order.user << " -- " << flavor_string << " x " << order.line_item.number_of_cookies << "\n\n";
+    std::cout << "* $" << item[flavor_int].price << " x " << order.line_item.number_of_cookies << "\n\n";
+    std::cout << "*  $" << total << "\n\n";
 }
 
-void cookie_order_function(details item[])
+void print_order_history(details item[], cookie_order orders[], int order_count)
+{
+    int i;
+
+    printf(" ***** ORDER History ***** \n");
+    printf("---------------------------------- \n");
+    printf(" USER | LINE ITEMS | ORDER_ID \n");
+    printf("------------------------ \n");
+
+    for (i = 0; i < order_count; i++)
+        std::cout << orders[i].user << " " << flavor_int_2_str(orders[i].line_item.cookie_flavor) << " " << orders[i].order_id << std::endl;
+    printf("---------------------------");
+}
+
+int cookie_order_function(details item[], cookie_order orders[], int order_count)
 {
     int cookie_type;
     int cookie_quantity;
@@ -101,27 +140,32 @@ void cookie_order_function(details item[])
     cout << "Cuantas Galletas quieres? (1-100)" << endl;
     cin >> cookie_quantity;
 
-    order_item cookies[500];
+    line_item cookies[500];
     cookies[1].cookie_flavor = cookie_type;
     cookies[1].number_of_cookies = cookie_quantity;
 
-    cookie_order order[100];
-    order[1].user = "GuestUser";
-    order[1].order_item = cookies[1];
-    order[1].order_id = rand() % 100000;
+    orders[order_count].user = "GuestUser";
+    orders[order_count].line_item = cookies[1];
+    orders[order_count].order_id = rand() % 100000;
 
-    print_cookie_order(order[1], item);
+    print_cookie_order(orders[order_count], item);
 
     consume_cookie_inventory(item, cookie_type - 1, cookie_quantity);
 
     // Reorder Loop
     cout << "Quieres pedir mas galletas? (Y/N)" << endl;
     cin >> reorder_bool;
+
     if (reorder_bool == "Y")
     {
         cout << "--Siguiente Orden--" << endl;
-        cookie_order_function(item);
+        order_count = cookie_order_function(item, orders, order_count);
     }
+    else
+    {
+        order_count = order_count + 1;
+    }
+    return order_count;
 }
 
 void crear_usuario_function()
@@ -157,7 +201,7 @@ void menu_galletas()
     cout << "==================" << endl;
 }
 
-void main_menu_function(details item[])
+void main_menu_function(details item[], cookie_order orders[], int order_count)
 {
     // Initialize Variables
     int entrada_de_usuario;
@@ -178,37 +222,37 @@ void main_menu_function(details item[])
     if (entrada_de_usuario == 0)
     {
         menu_galletas();
-        main_menu_function(item);
+        main_menu_function(item, orders, order_count);
     }
     // crear usuario
     else if (entrada_de_usuario == 1)
     {
         crear_usuario_function();
-        main_menu_function(item);
+        main_menu_function(item, orders, order_count);
     }
     // crear nueva orden
     else if (entrada_de_usuario == 2)
     {
-        cookie_order_function(item);
-        main_menu_function(item);
+        order_count = cookie_order_function(item, orders, order_count);
+        main_menu_function(item, orders, order_count);
     }
     // Ver historial
     else if (entrada_de_usuario == 3)
     {
-        cout << "" << endl;
-        main_menu_function(item);
+        print_order_history(item, orders, order_count);
+        main_menu_function(item, orders, order_count);
     }
     // crear analiticos
     else if (entrada_de_usuario == 4)
     {
         cout << "" << endl;
-        main_menu_function(item);
+        main_menu_function(item, orders, order_count);
     }
     // ver inventario de galletas
     else if (entrada_de_usuario == 5)
     {
         print_inventory(item);
-        main_menu_function(item);
+        main_menu_function(item, orders, order_count);
     }
     // Exit menu
     else if (entrada_de_usuario == 6)
@@ -225,6 +269,9 @@ void main_menu_function(details item[])
 
 int main()
 {
+    cookie_order orders[100];
+    int order_count = 0;
+
     struct details item[4];
     item[0].name = "Galleta de chocolate";
     item[0].price = 100;
@@ -246,7 +293,7 @@ int main()
     item[3].code = 0004;
     item[3].qty = 15;
 
-    main_menu_function(item);
+    main_menu_function(item, orders, order_count);
 
     return 0;
 }
