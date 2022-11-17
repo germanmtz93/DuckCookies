@@ -9,6 +9,26 @@ struct details
     int qty;
 };
 
+struct cookit_user
+{
+    int user_id;
+    std::string name;
+    std::string email;
+};
+
+struct order_item
+{
+    int cookie_flavor;
+    int number_of_cookies;
+};
+
+struct cookie_order
+{
+    int order_id;
+    std::string user;
+    struct order_item order_item;
+};
+
 void print_inventory(details item[])
 {
     int n, i;
@@ -30,26 +50,6 @@ void consume_cookie_inventory(details item[], int flavor, int consumed_quatity)
     item[0].qty = temp - consumed_quatity;
 }
 
-struct cookit_user
-{
-    int user_id;
-    std::string name;
-    std::string email;
-};
-
-struct order_item
-{
-    std::string cookie_flavor;
-    int number_of_cookies;
-};
-
-struct cookie_order
-{
-    int order_id;
-    std::string user;
-    struct order_item order_item;
-};
-
 void print_user(cookit_user user)
 {
 
@@ -58,31 +58,41 @@ void print_user(cookit_user user)
 
 void print_cookie_order(cookie_order order)
 {
-    std::cout << "\n * " << order.order_id << " " << order.user << " -- " << order.order_item.cookie_flavor << " x " << order.order_item.number_of_cookies << "\n\n";
+    std::string flavor_string;
+    if (order.order_item.cookie_flavor == 1)
+    {
+        flavor_string = "choco";
+    }
+    // TODO
+    else
+    {
+        flavor_string = "?";
+    }
+    std::cout << "\n * " << order.order_id << " " << order.user << " -- " << flavor_string << " x " << order.order_item.number_of_cookies << "\n\n";
 }
 
 void cookie_order_function()
 {
-    string cookie_type;
+    int cookie_type;
     int cookie_quantity;
     string reorder_bool;
 
     cout << "" << endl;
-    cout << "Que galletas quieres ordenar (Galleta de chocolate, Galleta de vainilla, Galleta de azucar, Brownie)" << endl;
+    cout << "Que sabor de galletas quieres ordenar ( 1 = Galleta de chocolate, 2 = Galleta de vainilla, 3 = Galleta de azucar, 4 = Brownie)" << endl;
     cin >> cookie_type;
     cout << "Cuantas Galletas quieres? (1-100)" << endl;
     cin >> cookie_quantity;
 
-    order_item item1;
-    item1.cookie_flavor = cookie_type;
-    item1.number_of_cookies = cookie_quantity;
+    order_item item[500];
+    item[1].cookie_flavor = cookie_type;
+    item[1].number_of_cookies = cookie_quantity;
 
-    cookie_order order1;
-    order1.user = "GuestUser";
-    order1.order_item = item1;
-    order1.order_id = rand() % 100000;
+    cookie_order order[100];
+    order[1].user = "GuestUser";
+    order[1].order_item = item[1];
+    order[1].order_id = rand() % 100000;
 
-    print_cookie_order(order1);
+    print_cookie_order(order[1]);
 
     // consume_cookie_inventory(item, 0, 25);
 
@@ -106,13 +116,15 @@ void crear_usuario_function()
     cout << "\n introduce tu email: ";
     cin >> email;
 
-    cookit_user user1;
-    user1.name = usuario;
-    user1.email = email;
-    user1.user_id = rand() % 100000;
+    int i = 0;
+
+    cookit_user user[500];
+    user[i].name = usuario;
+    user[i].email = email;
+    user[i].user_id = rand() % 100000;
 
     std::cout << "---- USER CREATED ----- \n";
-    print_user(user1);
+    print_user(user[i]);
 }
 
 void menu_galletas()
