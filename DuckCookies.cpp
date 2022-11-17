@@ -56,7 +56,7 @@ void print_user(cookit_user user)
     std::cout << "\n Tu usuario es: " << user.name << "\n Tu correo es: " << user.email << endl;
 }
 
-void print_cookie_order(cookie_order order)
+void print_cookie_order(cookie_order order, details item[])
 {
     std::string flavor_string;
     if (order.order_item.cookie_flavor == 1)
@@ -80,10 +80,16 @@ void print_cookie_order(cookie_order order)
     {
         flavor_string = "?";
     }
+
+    int flavor_int = (order.order_item.cookie_flavor) - 1;
+    int total = (item[flavor_int].price) * (order.order_item.number_of_cookies);
+
     std::cout << "\n * " << order.order_id << " " << order.user << " -- " << flavor_string << " x " << order.order_item.number_of_cookies << "\n\n";
+    std::cout << "\n * $" << item[flavor_int].price << " x " << order.order_item.number_of_cookies << "\n\n";
+    std::cout << "\n *  $" << total << "\n\n";
 }
 
-void cookie_order_function()
+void cookie_order_function(details item[])
 {
     int cookie_type;
     int cookie_quantity;
@@ -95,18 +101,18 @@ void cookie_order_function()
     cout << "Cuantas Galletas quieres? (1-100)" << endl;
     cin >> cookie_quantity;
 
-    order_item item[500];
-    item[1].cookie_flavor = cookie_type;
-    item[1].number_of_cookies = cookie_quantity;
+    order_item cookies[500];
+    cookies[1].cookie_flavor = cookie_type;
+    cookies[1].number_of_cookies = cookie_quantity;
 
     cookie_order order[100];
     order[1].user = "GuestUser";
-    order[1].order_item = item[1];
+    order[1].order_item = cookies[1];
     order[1].order_id = rand() % 100000;
 
-    print_cookie_order(order[1]);
+    print_cookie_order(order[1], item);
 
-    // consume_cookie_inventory(item, 0, 25);
+    consume_cookie_inventory(item, cookie_type - 1, cookie_quantity);
 
     // Reorder Loop
     cout << "Quieres pedir mas galletas? (Y/N)" << endl;
@@ -114,7 +120,7 @@ void cookie_order_function()
     if (reorder_bool == "Y")
     {
         cout << "--Siguiente Orden--" << endl;
-        cookie_order_function();
+        cookie_order_function(item);
     }
 }
 
@@ -183,7 +189,7 @@ void main_menu_function(details item[])
     // crear nueva orden
     else if (entrada_de_usuario == 2)
     {
-        cookie_order_function();
+        cookie_order_function(item);
         main_menu_function(item);
     }
     // Ver historial
