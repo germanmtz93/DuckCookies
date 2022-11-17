@@ -1,6 +1,35 @@
 #include <iostream>
 using namespace std;
 
+struct details
+{
+    std::string name;
+    int price;
+    int code;
+    int qty;
+};
+
+void print_inventory(details item[])
+{
+    int n, i;
+    n = 4;
+
+    printf(" ***** INVENTORY ***** \n");
+    printf("---------------------------------- \n");
+    printf("S.N.| NAME | CODE | QUANTITY | PRICE \n");
+    printf("------------------------ \n");
+
+    for (i = 0; i < n; i++)
+        std::cout << i + 1 << " " << item[i].name << " " << item[i].code << " " << item[i].qty << " " << item[i].price << std::endl;
+    printf("---------------------------");
+}
+
+void consume_cookie_inventory(details item[], int flavor, int consumed_quatity)
+{
+    int temp = item[flavor].qty;
+    item[0].qty = temp - consumed_quatity;
+}
+
 struct cookit_user
 {
     int user_id;
@@ -55,6 +84,8 @@ void cookie_order_function()
 
     print_cookie_order(order1);
 
+    // consume_cookie_inventory(item, 0, 25);
+
     // Reorder Loop
     cout << "Quieres pedir mas galletas? (Y/N)" << endl;
     cin >> reorder_bool;
@@ -88,15 +119,15 @@ void menu_galletas()
 {
     cout << "==================" << endl;
     cout << "\n MENU" << endl;
-    cout << "Galleta de chocolate $100" << endl;
-    cout << "Vainilla $120" << endl;
-    cout << "Galleta de azucar $90" << endl;
-    cout << "Brownie $200 \n"
+    cout << "1. Galleta de chocolate $100" << endl;
+    cout << "2. Vainilla $120" << endl;
+    cout << "3. Galleta de azucar $90" << endl;
+    cout << "4. Brownie $200 \n"
          << endl;
     cout << "==================" << endl;
 }
 
-void main_menu_function()
+void main_menu_function(details item[])
 {
     // Initialize Variables
     int entrada_de_usuario;
@@ -106,9 +137,10 @@ void main_menu_function()
     cout << "0: Ver menu" << endl;
     cout << "1: Crear usuario " << endl;
     cout << "2: Crear nueva orden" << endl;
-    cout << "3: Ver nueva historial" << endl;
+    cout << "3: Ver historial de ordenes" << endl;
     cout << "4: Crear analiticos" << endl;
-    cout << "5. Exit menu" << endl;
+    cout << "5: Ver inventario de galletas" << endl;
+    cout << "6. Exit menu" << endl;
 
     cout << "\n User Input:" << endl;
     cin >> entrada_de_usuario;
@@ -116,34 +148,40 @@ void main_menu_function()
     if (entrada_de_usuario == 0)
     {
         menu_galletas();
-        main_menu_function();
+        main_menu_function(item);
     }
     // crear usuario
     else if (entrada_de_usuario == 1)
     {
         crear_usuario_function();
-        main_menu_function();
+        main_menu_function(item);
     }
     // crear nueva orden
     else if (entrada_de_usuario == 2)
     {
         cookie_order_function();
-        main_menu_function();
+        main_menu_function(item);
     }
     // Ver historial
     else if (entrada_de_usuario == 3)
     {
         cout << "" << endl;
-        main_menu_function();
+        main_menu_function(item);
     }
     // crear analiticos
     else if (entrada_de_usuario == 4)
     {
         cout << "" << endl;
-        main_menu_function();
+        main_menu_function(item);
+    }
+    // ver inventario de galletas
+    else if (entrada_de_usuario == 5)
+    {
+        print_inventory(item);
+        main_menu_function(item);
     }
     // Exit menu
-    else if (entrada_de_usuario == 5)
+    else if (entrada_de_usuario == 6)
     {
         cout << "Thank you for shopping at Duck Cookies. Program Closing \n"
              << endl;
@@ -157,6 +195,28 @@ void main_menu_function()
 
 int main()
 {
-    main_menu_function();
+    struct details item[4];
+    item[0].name = "Galleta de chocolate";
+    item[0].price = 100;
+    item[0].code = 0001;
+    item[0].qty = 100;
+
+    item[1].name = "Vainilla";
+    item[1].price = 120;
+    item[1].code = 0002;
+    item[1].qty = 50;
+
+    item[2].name = "Galleta de azucar ";
+    item[2].price = 90;
+    item[2].code = 0003;
+    item[2].qty = 50;
+
+    item[3].name = "Brownie";
+    item[3].price = 200;
+    item[3].code = 0004;
+    item[3].qty = 15;
+
+    main_menu_function(item);
+
     return 0;
 }
